@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="../static/postCreate.css">
+    <title>Forum</title>
+</head>
+<body>
+    <head>
+        <div class="back">
+            <a href="/"><-Back</a>
+        </div>
+    </head>
+    <div class="createPost">
+    <form method="Post" action="/post/create">
+        <label><strong>Tittle</strong></label><br>
+        <input type="text" name="title" pattern=".{2,}" maxlength="30" placeholder="Enter title" required ><br>
+        <br><label><strong>Description</strong></label>
+        <textarea class="description" name="content" cols="158" rows="10"></textarea><br>
+        <br><label><strong>Please select category:</strong></label>
+        <div class="category">
+            {{range .}}
+            <h3><input type="checkbox" name="categories" class="category" value="{{.Name}}">{{.Name}}</h3>
+            {{end}}
+        </div>
+        <input type="submit" value="CREATE">
+    </form>
+        
+    </div>
+
+
+    
+</body>
+</html>

@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="../static/signInSignUp.css">
+    <title>Forum</title>
+</head>
+<body>
+    <header>
+        <div class="home">
+            <a href="/">Home</a>
+        </div>
+    </header>
+    <div class="container">
+        <div class="form-wrapper">
+            <div class="error">
+                {{if .Error}}
+                <p style="color: red; font-size: 15px;font-weight: bold;">{{.Error}}</p>
+                {{end}}
+            </div>
+            <form method="POST" action="/signUp">
+                <label for="text">Username:</label>
+                <input type="text" pattern="[\x20-\x7E]{6,36}"  name="name" required placeholder="Enter Your Name" title="Must contain at least 6 to 36 characters">
+         
+         
+                <label for="email" maxlength="30" >Email:</label>
+                <input type="email" name="email" 
+                pattern="^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$" 
+                title="Invalid email address" 
+                required placeholder="Example@email.com" >
+         
+         
+                 <label type="password">Password:</label>
+                 <input type="password" name="passw" 
+                 pattern="^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[$@$!%*?&#])[A-Za-z\d$@$!%*?&#+-=_^]{8,20}$" 
+                 title="Must contain at least one  number and one uppercase and lowercase letter, and at least 8 to 20 characters"
+                 required placeholder="Enter password"
+                 >
+         
+         
+                 <label type="password">Repeat password</label>
+                 <input type="password" name="rPassw" required placeholder="Enter password" 
+                 pattern="^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[$@$!%*?&#])[A-Za-z\d$@$!%*?&#+-=_^]{8,20}$"
+                 title="your password must match the first one">
+         
+                <br>
+                <br>
+                 <button type="submit">Register</button>
+                 <a href="/signIn"> I've already an account</a>
+         
+             </form>
+        </div>
+    </div>
+</body>
+</html>

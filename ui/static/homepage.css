@@ -1,0 +1,115 @@
+html{
+   /* padding: 20px; */
+   padding: 0;
+   margin: 0;
+   background-image: url('images/fon.jpeg'); /* Путь к вашему изображению */  
+   background-position: center; /* Центрирует изображение */
+
+}
+body{
+   padding: 0;
+   margin: 0 ;
+}
+a{
+   text-decoration: none;
+   transition: color 0.3s; 
+   color: black;
+}
+.top a:hover{
+   color:rgb(73, 63, 63);
+
+}
+.top {
+   padding:25px;
+   display: flex;
+   font-size: 20px;
+   background-color:black;
+
+}  
+.top a{
+   color:white;
+
+}
+.logOut {
+   margin-left: auto;
+}
+.posts{
+   margin-left: 100px;
+   margin-right: 100px;
+}
+.post{
+   margin-top: 10px;
+   margin-bottom: 80px;
+   padding: 15px 15px;
+   padding-bottom: 50px;
+   box-shadow: 0 0 10px rgba(17, 16, 16, 0.4);
+   border-radius: 10px;
+   background-color: rgb(250, 251, 255);
+}
+.user{
+   font-size: 13px;
+}
+
+.category{
+   background-color: rgb(56, 51, 51);
+   display: inline-block;
+   border-radius: 5px;
+   color: white;
+   padding: 5px;
+   margin-top: 5px;
+}
+.post .category{
+  float: right;
+}
+.left{
+   margin-top: 15px;
+   text-align: left;
+   display: inline-block;
+   padding: 10px 20px;
+   padding-right: 50px;
+   box-shadow: 0 0 10px rgba(17, 16, 16, 0.4);
+   border-radius: 10px;
+   background-color: rgb(250, 251, 255);
+   border: 2px solid  rgba(15, 16, 17, 0.7);
+}
+.left a,.ChoiceCategory a{
+   display: inline-block;
+   margin-bottom: 10px;
+   border: 2px solid  rgba(15, 16, 17, 0.7);
+   border-radius: 5px;
+   width: 100%;
+   margin-right: 50px;
+   padding: 5px 10px;
+}
+.ChoiceCategory a{
+   margin-right: 90px;
+}
+.left a:hover{
+   background-color: rgb(49, 45, 45);
+   color: rgb(204, 195, 195);
+   transition: color 0.3s; 
+}
+.all {
+   display: flex;
+   padding: 20px;
+   margin: 0 30px;
+
+}
+
+.content{
+   width: 100%;
+}
+.header a{
+   text-decoration: none;
+   color: black;
+   font-size: 20px;
+   padding-left: 10px;
+}
+.header{
+   padding: 20px 0px;
+}
+.header a:hover{
+   transition: color 0.3s;
+   color: rgb(84, 88, 88);
+
+}

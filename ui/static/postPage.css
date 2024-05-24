@@ -1,0 +1,112 @@
+html {
+    padding: 0;
+    margin: 0;
+    background-image: url('images/fon.jpeg');
+    background-position: center;
+}
+
+.site {
+    padding: 30px;
+}
+
+.box {
+    padding-right: 15px;
+}
+
+.menu-items a {
+    margin-left: 30px;
+    color: rgba(27, 24, 24, 0.5);
+    transition: color 0.3s;
+    font-size: 25px;
+    text-decoration: none;
+}
+
+.menu-items a:hover {
+    color: rgb(27, 27, 27);
+}
+
+.post,
+.oneComment,
+.comment{
+    margin: 100px auto;
+    background-color: white;
+    padding: 25px;
+    border-radius: 10px;
+    width: 70%;
+    box-shadow: 0 0 10px rgba(17, 16, 16, 0.4);
+    margin-bottom: 10px;
+}
+
+.title {
+    font-size: 25px;
+    color: rgb(34, 34, 37);
+    font-weight: bold;
+}
+
+.content {
+    font-size: 15px;
+}
+
+.createDate {
+    font-size: 13px;
+}
+
+#author {
+    font-weight: bold;
+}
+
+.bottom {
+    margin-top: 30px;
+    margin-bottom: 10px;
+}
+
+button {
+    border: none;
+    background: none;
+    padding: 0;
+}
+
+.allComment {
+    border-radius: 10px;
+    margin-bottom: 10px;
+}
+
+.comment {
+    margin-top: 20px;
+}
+
+.comment input[type="text"] {
+    padding: 10px;
+    width: 89.7%;
+    border: 3px solid rgba(17, 16, 16, 0.4);
+    border-radius: 5px;
+}
+
+.comment button[type="submit"] {
+    padding: 12px 28px;
+    background-color: rgb(5, 5, 5);
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    margin-left: -6px;
+}
+
+.comment button[type="submit"]:hover {
+    color: white;
+    background-color: rgb(4, 5, 7);
+}
+.comments label{
+    float: right;
+
+}
+.author{
+    text-align: right;
+    font-size: 13px;
+}
+.oneComment p{
+    font-size: 15px;
+}
+label{
+    float: right;
+}

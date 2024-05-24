@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="../static/homepage.css">
+    <title>Forum</title>
+</head>
+<body>
+    {{if .User.IsAuth}}
+    <div class="top">
+        <a href="/">{{.User.Name}}</a><br>
+        <div class="logOut">
+            <a href="/logOut">Log out</a>
+        </div>
+    </div>
+    <div class="all">
+        <div class="actions">
+            <div class="left">
+                Actions: <br><br>
+                <a href="/post/create">Create Post</a><br>
+                <a href="/myPosts">My Post</a><br>
+                <a href="/likedPosts">Liked posts</a><br><br>   
+                Filter by tag: <br><br>
+                {{range .Category}}
+                <a href="?category={{.Name}}">{{.Name}}</a><br>
+                {{end}}
+            </div>
+        </div>
+    {{else}}
+    <div class="header">
+        <a href="/signUp">Sign-Up</a>
+        <a href="/signIn">Sign-in</a>
+    </div>
+    {{end}}
+    <div class="content">
+        <div class="posts">
+            {{range .AllPosts}}
+            <div class="link">
+                <a href="/post/?id={{.IdPost}}">
+                    <div class="post">
+                        <div class="user">{{.CreateDate}} by <strong>{{.Author}}</strong></div>
+                        <div class="title_post">
+                            <h3>{{.Title}}</h3>
+                        </div>
+                        <div class="content">{{.Content}}</div>
+                        <div class="category">
+                            {{range .Category}}
+                            {{.}}
+                            {{end}}
+                        </div>
+                    </div>
+                </a>
+            </div>
+            {{end}}
+        </div>
+    </div>  
+    </div>
+</body>
+</html>

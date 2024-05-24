@@ -1,0 +1,61 @@
+html{
+    /* padding: 20px; */
+    padding: 0;
+    margin: 0;
+    background-image: url('images/fon.jpeg'); /* Путь к вашему изображению */  
+    background-position: center; /* Центрирует изображение */
+ 
+ }
+ .createPost{
+    box-shadow: 0 0 10px rgba(17, 16, 16, 0.4);
+    border-radius: 10px;
+    background-color: rgb(250, 251, 255);
+    margin: 30px 100px;
+    padding: 15px;
+    padding-right: 25px;
+
+
+ }
+ .createPost textarea {
+    margin-bottom: 20px;
+    border: 1px solid rgb(17, 17, 20);
+    border-radius: 5px;
+    font-size: 16px;
+    width: 100%;
+}
+input[name="title"] {
+    width: 100%;
+    
+}
+.createPost input[type="submit"] {
+    padding: 10px 20px;
+    background-color:  #0b0c0c;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    border-color: rgb(71, 56, 56);
+    font-weight: bold;
+}
+.createPost input[type="submit"]:hover {
+    background-color:  rgb(13, 13, 14);
+    transition: color 0.3s;
+}
+.category{
+    font-size: 15px;
+}
+input[type="checkbox"]{
+    font-weight: normal;
+}
+.back a{
+    text-decoration: none;
+    font-size: 20px;
+    color: #3b3939;
+    font-weight: bold;
+}
+.back a:hover{
+    transition: color 0.3s;
+    background-color:black;
+    color: azure;
+
+}

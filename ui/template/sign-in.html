@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="../static/signInSignUp.css">
+    <title>Forum</title>
+</head>
+<body>
+    <header>
+        <div class="home">
+            <a href="/">Home</a>
+        </div>
+    </header>
+    <div class="container">
+        <div class="form-wrapper">
+            <div class="error">
+                {{if .Status}}
+                <p style="color: green; font-size: 20px; font-weight: bold;">{{.Status}}</p>
+                {{end}}
+            </div>
+             <form method="POST" action="/signIn">
+                <label for="username">Email:</label>
+                <input type="text" maxlength="36"  name="email" required placeholder="Enter Your Name"
+                pattern="[\x20-\x7E]{6,36}"
+                title="Incorrect name  format"
+                >
+                <label for="password">Password:</label>
+                <input type="password" name="password" required placeholder="Enter Your Password"
+                pattern="^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[$@$!%*?&#])[A-Za-z\d$@$!%*?&#+-=_^]{8,20}$"
+                title="Incorrect password format"
+                 >
+                <button type="submit">Login</button>
+                <a href="/signUp">Register</a>
+
+            </form>
+
+        </div>
+    </div>
+</body>
+</html>
