@@ -23,5 +23,7 @@ func main() {
 	handler := handler.InitHandler(services)
 	handler.Routers()
 	fmt.Println("http://localhost:8081")
-	http.ListenAndServe(":8081", handler.Mux)
+	if err = http.ListenAndServe(":8081", handler.Mux); err != nil {
+		log.Fatal(err)
+	}
 }
