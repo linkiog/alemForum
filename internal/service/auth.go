@@ -103,7 +103,7 @@ func generateHash(passw string) (string, error) {
 func (a *AuthService) CheckUserFormDb(user models.User) (string, time.Time, error) {
 	password, err := a.storage.GetUserByEmail(user.Email)
 	if err != nil {
-		return "", time.Time{}, errors.New("password or email address is incorrect")
+		return "", time.Time{}, errors.New("Password or email address is incorrect")
 	}
 	if err := comparePassw(password, user.Password); err != nil {
 		return "", time.Time{}, err
@@ -122,7 +122,7 @@ func (a *AuthService) CheckUserFormDb(user models.User) (string, time.Time, erro
 }
 func comparePassw(hash, password string) error {
 	if err := bcrypt.CompareHashAndPassword([]byte(hash), []byte(password)); err != nil {
-		return errors.New("password or email address is incorrect")
+		return errors.New("Password or email address is incorrect")
 	}
 
 	return nil

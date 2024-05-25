@@ -1,6 +1,7 @@
 package handler
 
 import (
+	"fmt"
 	"forum/internal/models"
 	"net/http"
 	"time"
@@ -45,7 +46,8 @@ func (h *Handler) postCreate(w http.ResponseWriter, r *http.Request) {
 			Category:   categories,
 			CreateDate: time.Now(),
 		}); err != nil {
-			http.Error(w, err.Error(), http.StatusBadRequest)
+			fmt.Println(err.Error())
+			http.Error(w, http.StatusText(http.StatusBadRequest), http.StatusBadRequest)
 			return
 		}
 		http.Redirect(w, r, "/", http.StatusSeeOther)

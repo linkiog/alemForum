@@ -1,6 +1,7 @@
 package handler
 
 import (
+	"fmt"
 	"forum/internal/models"
 	"net/http"
 )
@@ -32,12 +33,14 @@ func (h *Handler) GetMyLikedPost(w http.ResponseWriter, r *http.Request) {
 	}
 	myLikedPost, err := h.Service.PostSer.GetMyLikedPost(user.ID)
 	if err != nil {
-		http.Error(w, err.Error(), http.StatusInternalServerError)
+		fmt.Println(err.Error())
+		http.Error(w, http.StatusText(http.StatusInternalServerError), http.StatusInternalServerError)
 		return
 	}
 	categories, err := h.Service.PostSer.Category()
 	if err != nil {
-		http.Error(w, err.Error(), http.StatusInternalServerError)
+		fmt.Println(err.Error())
+		http.Error(w, http.StatusText(http.StatusInternalServerError), http.StatusInternalServerError)
 		return
 	}
 
@@ -52,7 +55,8 @@ func (h *Handler) GetMyLikedPost(w http.ResponseWriter, r *http.Request) {
 	}
 
 	if err := h.Tmp.ExecuteTemplate(w, "homePage.html", info); err != nil {
-		http.Error(w, err.Error(), http.StatusInternalServerError)
+		fmt.Println(err.Error())
+		http.Error(w, http.StatusText(http.StatusInternalServerError), http.StatusInternalServerError)
 		return
 	}
 

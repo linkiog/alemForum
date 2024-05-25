@@ -1,6 +1,7 @@
 package handler
 
 import (
+	"fmt"
 	"forum/internal/models"
 	"net/http"
 )
@@ -27,12 +28,14 @@ func (h *Handler) homePage(w http.ResponseWriter, r *http.Request) {
 	}
 	posts, err := h.Service.PostSer.GetAllPost()
 	if err != nil {
-		http.Error(w, err.Error(), http.StatusInternalServerError)
+		fmt.Println(err.Error())
+		http.Error(w, http.StatusText(http.StatusInternalServerError), http.StatusInternalServerError)
 		return
 	}
 	categories, err := h.Service.PostSer.Category()
 	if err != nil {
-		http.Error(w, err.Error(), http.StatusInternalServerError)
+		fmt.Println(err.Error())
+		http.Error(w, http.StatusText(http.StatusInternalServerError), http.StatusInternalServerError)
 		return
 	}
 	var info struct {
@@ -46,10 +49,13 @@ func (h *Handler) homePage(w http.ResponseWriter, r *http.Request) {
 		if Exist(categories, category) {
 			post, err := h.Service.PostSer.GetPostsByCategory(category)
 			if err != nil {
-				http.Error(w, err.Error(), http.StatusInternalServerError)
+				fmt.Println(err.Error())
+				http.Error(w, http.StatusText(http.StatusInternalServerError), http.StatusInternalServerError)
 				return
 			}
 			info.AllPosts = post
+		} else {
+			w.WriteHeader(http.StatusNotFound)
 		}
 	} else {
 		info.AllPosts = posts
@@ -58,7 +64,8 @@ func (h *Handler) homePage(w http.ResponseWriter, r *http.Request) {
 	info.User = user
 
 	if err := h.Tmp.ExecuteTemplate(w, "homePage.html", info); err != nil {
-		http.Error(w, err.Error(), http.StatusInternalServerError)
+		fmt.Println(err.Error())
+		http.Error(w, http.StatusText(http.StatusInternalServerError), http.StatusInternalServerError)
 		return
 	}
 }

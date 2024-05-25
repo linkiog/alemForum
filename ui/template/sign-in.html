@@ -18,6 +18,7 @@
                 {{if .Status}}
                 <p style="color: green; font-size: 20px; font-weight: bold;">{{.Status}}</p>
                 {{end}}
+                <label style="width: bold; font-size: 16px;">{{.Error}}</label>
             </div>
              <form method="POST" action="/signIn">
                 <label for="username">Email:</label>

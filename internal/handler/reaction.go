@@ -50,7 +50,8 @@ func (h *Handler) reactionPost(w http.ResponseWriter, r *http.Request) {
 			PostId: postId,
 			Islike: 1,
 		}); err != nil {
-			http.Error(w, err.Error(), http.StatusInternalServerError)
+			fmt.Println(err.Error())
+			http.Error(w, http.StatusText(http.StatusInternalServerError), http.StatusInternalServerError)
 			return
 		}
 
@@ -60,7 +61,8 @@ func (h *Handler) reactionPost(w http.ResponseWriter, r *http.Request) {
 			PostId: postId,
 			Islike: -1,
 		}); err != nil {
-			http.Error(w, err.Error(), http.StatusInternalServerError)
+			fmt.Println(err.Error())
+			http.Error(w, http.StatusText(http.StatusInternalServerError), http.StatusInternalServerError)
 			return
 		}
 
@@ -116,7 +118,8 @@ func (h *Handler) reactionComment(w http.ResponseWriter, r *http.Request) {
 			CommentId: comment.IdComment,
 			Islike:    1,
 		}); err != nil {
-			http.Error(w, err.Error(), http.StatusInternalServerError)
+			fmt.Println(err.Error())
+			http.Error(w, http.StatusText(http.StatusInternalServerError), http.StatusInternalServerError)
 			return
 		}
 
@@ -126,7 +129,8 @@ func (h *Handler) reactionComment(w http.ResponseWriter, r *http.Request) {
 			CommentId: commentId,
 			Islike:    -1,
 		}); err != nil {
-			http.Error(w, err.Error(), http.StatusInternalServerError)
+			fmt.Println(err.Error())
+			http.Error(w, http.StatusText(http.StatusInternalServerError), http.StatusInternalServerError)
 			return
 		}
 

@@ -24,6 +24,7 @@ func (h *Handler) signIn(w http.ResponseWriter, r *http.Request) {
 				Email:    email,
 				Password: password,
 			}
+			w.WriteHeader(http.StatusUnauthorized)
 			if err := h.Tmp.ExecuteTemplate(w, "sign-in.html", info); err != nil {
 				http.Error(w, http.StatusText(http.StatusInternalServerError), http.StatusInternalServerError)
 				return

@@ -35,14 +35,20 @@ func (h *Handler) PostPage(w http.ResponseWriter, r *http.Request) {
 
 	post, err := h.Service.GetOnePost(id)
 	if err != nil {
-		http.Error(w, err.Error(), http.StatusInternalServerError)
+		fmt.Println(err.Error())
+		http.Error(w, http.StatusText(http.StatusInternalServerError), http.StatusInternalServerError)
 		return
 
 	}
 	categories, err := h.Service.PostSer.GetCategories()
+	if err != nil {
+		fmt.Println(err.Error())
+		http.Error(w, http.StatusText(http.StatusInternalServerError), http.StatusInternalServerError)
+	}
 	comments, err := h.Service.GetAllComment(id)
 	if err != nil {
-		http.Error(w, err.Error(), http.StatusInternalServerError)
+		fmt.Println(err.Error())
+		http.Error(w, http.StatusText(http.StatusInternalServerError), http.StatusInternalServerError)
 		return
 
 	}
@@ -51,7 +57,8 @@ func (h *Handler) PostPage(w http.ResponseWriter, r *http.Request) {
 		comment := r.FormValue("comment")
 		date := time.Now().Format("January 2, 2006 15:04:05")
 		if err := h.Service.Comment.CreateComment(comment, user.Name, user.ID, id, date); err != nil {
-			http.Error(w, err.Error(), http.StatusInternalServerError)
+			fmt.Println(err.Error())
+			http.Error(w, http.StatusText(http.StatusInternalServerError), http.StatusInternalServerError)
 			return
 		}
 		http.Redirect(w, r, r.URL.Path+fmt.Sprintf("/?id=%d", id), http.StatusSeeOther)
@@ -68,7 +75,8 @@ func (h *Handler) PostPage(w http.ResponseWriter, r *http.Request) {
 			Category: categories,
 		}
 		if err := h.Tmp.ExecuteTemplate(w, "postPage.html", info); err != nil {
-			http.Error(w, err.Error(), http.StatusInternalServerError)
+			fmt.Println(err.Error())
+			http.Error(w, http.StatusText(http.StatusInternalServerError), http.StatusInternalServerError)
 			return
 		}
 	default:

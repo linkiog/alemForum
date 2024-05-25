@@ -122,3 +122,8 @@ label{
     border-radius: 10px;
     color:rgb(255, 255, 255);
 }
+@media (max-width:900px) {
+    .category{
+        float: none;
+    }
+ }
