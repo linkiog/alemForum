@@ -54,7 +54,15 @@ func (h *Handler) PostPage(w http.ResponseWriter, r *http.Request) {
 	}
 	switch r.Method {
 	case http.MethodPost:
+		if !user.IsAuth {
+			http.Error(w, http.StatusText(http.StatusUnauthorized), http.StatusUnauthorized)
+			return
+		}
 		comment := r.FormValue("comment")
+		if comment == "" || len(comment) > 200 {
+			http.Error(w, http.StatusText(http.StatusBadRequest), http.StatusBadRequest)
+			return
+		}
 		date := time.Now().Format("January 2, 2006 15:04:05")
 		if err := h.Service.Comment.CreateComment(comment, user.Name, user.ID, id, date); err != nil {
 			fmt.Println(err.Error())
