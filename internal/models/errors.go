@@ -10,3 +10,8 @@ var (
 	ErrShortPassword     = errors.New("Incorrect password - your password should be a minimum of 8 characters and consist of at least:1 lower case letter, 1 upper case letter, 1 number, 1 special symbol")
 	Err                  = errors.New("You have successfully registered")
 )
+
+type Error struct {
+	Status     int
+	StatusText string
+}

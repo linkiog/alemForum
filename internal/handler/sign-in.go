@@ -7,7 +7,7 @@ import (
 
 func (h *Handler) signIn(w http.ResponseWriter, r *http.Request) {
 	if r.URL.Path != "/signIn" {
-		http.Error(w, http.StatusText(http.StatusMethodNotAllowed), http.StatusMethodNotAllowed)
+		h.ErrorPage(w, http.StatusMethodNotAllowed)
 		return
 	}
 	switch r.Method {
@@ -45,7 +45,7 @@ func (h *Handler) signIn(w http.ResponseWriter, r *http.Request) {
 			return
 		}
 	default:
-		http.Error(w, http.StatusText(http.StatusMethodNotAllowed), http.StatusMethodNotAllowed)
+		h.ErrorPage(w, http.StatusMethodNotAllowed)
 		return
 
 	}

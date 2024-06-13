@@ -27,7 +27,7 @@ const (
 		category TEXT,
 		like INTEGER DEFAULT 0,
 		dislike INTEGER DEFAULT 0,
-		createDate DATETIME DEFAULT CURRENT_TIMESTAMP,
+		createDate text,
 		FOREIGN KEY (idAuth) REFERENCES user (id)
 	);`
 	category = `

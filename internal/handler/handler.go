@@ -37,7 +37,7 @@ func (h *Handler) Routers() {
 	h.Mux.HandleFunc("/myPosts", h.middleWare(h.myPosts))
 	h.Mux.HandleFunc("/likedPosts", h.middleWare(h.GetMyLikedPost))
 
-	h.Mux.HandleFunc("/post/edit/", h.middleWare(h.editPost))
+	// h.Mux.HandleFunc("/post/edit/", h.middleWare(h.editPost))
 	fileServer := http.FileServer(neuteredFileSystem{http.Dir("./ui/static/")})
 	h.Mux.Handle("/static/", http.StripPrefix("/static/", fileServer))
 }
@@ -53,6 +53,9 @@ func (nfs neuteredFileSystem) Open(path string) (http.File, error) {
 	}
 
 	s, err := f.Stat()
+	if err != nil {
+		return nil, err
+	}
 	if s.IsDir() {
 		index := filepath.Join(path, "index.html")
 		if _, err := nfs.fs.Open(index); err != nil {

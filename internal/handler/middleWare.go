@@ -23,7 +23,7 @@ func (h *Handler) middleWare(next http.HandlerFunc) http.HandlerFunc {
 		}
 		if user.Token_duration.Before(time.Now()) {
 			if err := h.Service.DeleteToken(t.Value); err != nil {
-				http.Error(w, http.StatusText(http.StatusInternalServerError), http.StatusInternalServerError)
+				h.ErrorPage(w, http.StatusInternalServerError)
 				return
 			}
 			http.Redirect(w, r, "/sigIn", http.StatusSeeOther)

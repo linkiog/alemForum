@@ -1,7 +1,5 @@
 package models
 
-import "time"
-
 type Post struct {
 	IdPost     int
 	IdAuth     int
@@ -11,5 +9,5 @@ type Post struct {
 	Category   []string
 	Like       int
 	Dislike    int
-	CreateDate time.Time
+	CreateDate string
 }

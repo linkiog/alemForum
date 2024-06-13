@@ -9,27 +9,28 @@ import (
 
 func (h *Handler) postCreate(w http.ResponseWriter, r *http.Request) {
 	if r.URL.Path != "/post/create" {
-		http.Error(w, http.StatusText(http.StatusNotFound), http.StatusNotFound)
+		h.ErrorPage(w, http.StatusNotFound)
 		return
 	}
 	userValue := r.Context().Value("user")
 	if userValue == nil {
-		http.Error(w, http.StatusText(http.StatusUnauthorized), http.StatusUnauthorized)
+		h.ErrorPage(w, http.StatusUnauthorized)
 		return
 	}
 
 	user, ok := userValue.(models.User)
 	if !ok {
-		http.Error(w, http.StatusText(http.StatusUnauthorized), http.StatusUnauthorized)
+		h.ErrorPage(w, http.StatusUnauthorized)
 		return
 	}
 	if !user.IsAuth {
-		http.Error(w, http.StatusText(http.StatusUnauthorized), http.StatusUnauthorized)
+		h.ErrorPage(w, http.StatusUnauthorized)
 		return
 	}
 	categories, err := h.Service.PostSer.GetCategories()
 	if err != nil {
-		http.Error(w, err.Error(), http.StatusInternalServerError)
+		fmt.Println(err.Error())
+		h.ErrorPage(w, http.StatusInternalServerError)
 		return
 
 	}
@@ -44,10 +45,10 @@ func (h *Handler) postCreate(w http.ResponseWriter, r *http.Request) {
 			Title:      title,
 			Content:    content,
 			Category:   categories,
-			CreateDate: time.Now(),
+			CreateDate: time.Now().Format("January 2, 2006 15:04:05"),
 		}); err != nil {
 			fmt.Println(err.Error())
-			http.Error(w, http.StatusText(http.StatusBadRequest), http.StatusBadRequest)
+			h.ErrorPage(w, http.StatusBadRequest)
 			return
 		}
 		http.Redirect(w, r, "/", http.StatusSeeOther)
@@ -59,7 +60,7 @@ func (h *Handler) postCreate(w http.ResponseWriter, r *http.Request) {
 
 		}
 	default:
-		http.Error(w, http.StatusText(http.StatusMethodNotAllowed), http.StatusMethodNotAllowed)
+		h.ErrorPage(w, http.StatusMethodNotAllowed)
 		return
 	}
 

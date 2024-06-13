@@ -8,7 +8,7 @@ import (
 
 func (h *Handler) signUp(w http.ResponseWriter, r *http.Request) {
 	if r.URL.Path != "/signUp" {
-		http.Error(w, http.StatusText(http.StatusNotFound), http.StatusNotFound)
+		h.ErrorPage(w, http.StatusNotFound)
 		return
 	}
 	switch r.Method {
@@ -50,7 +50,7 @@ func (h *Handler) signUp(w http.ResponseWriter, r *http.Request) {
 			return
 		}
 	default:
-		http.Error(w, http.StatusText(http.StatusInternalServerError), http.StatusInternalServerError)
+		h.ErrorPage(w, http.StatusMethodNotAllowed)
 		return
 
 	}

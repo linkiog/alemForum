@@ -9,37 +9,33 @@ import (
 
 func (h *Handler) reactionPost(w http.ResponseWriter, r *http.Request) {
 	if r.URL.Path != "/reaction/post/" {
-		http.Error(w, http.StatusText(http.StatusNotFound), http.StatusNotFound)
+		h.ErrorPage(w, http.StatusNotFound)
 		return
 
 	}
 	if r.Method != http.MethodPost {
-		http.Error(w, http.StatusText(http.StatusMethodNotAllowed), http.StatusMethodNotAllowed)
+		h.ErrorPage(w, http.StatusMethodNotAllowed)
 		return
 
 	}
 	userValue := r.Context().Value("user")
 	if userValue == nil {
-		http.Error(w, http.StatusText(http.StatusUnauthorized), http.StatusUnauthorized)
+		h.ErrorPage(w, http.StatusUnauthorized)
 		return
 	}
 
 	user, ok := userValue.(models.User)
 	if !ok {
-		http.Error(w, http.StatusText(http.StatusUnauthorized), http.StatusUnauthorized)
+		h.ErrorPage(w, http.StatusUnauthorized)
 		return
 	}
 	if !user.IsAuth {
-		http.Error(w, http.StatusText(http.StatusUnauthorized), http.StatusUnauthorized)
+		h.ErrorPage(w, http.StatusUnauthorized)
 		return
 	}
 	postId, err := strconv.Atoi(r.URL.Query().Get("id"))
 	if postId == 0 || err != nil {
-		http.Error(w, http.StatusText(http.StatusInternalServerError), http.StatusInternalServerError)
-		return
-	}
-	if err != nil {
-		http.Error(w, http.StatusText(http.StatusInternalServerError), http.StatusInternalServerError)
+		h.ErrorPage(w, http.StatusInternalServerError)
 		return
 	}
 
@@ -51,7 +47,7 @@ func (h *Handler) reactionPost(w http.ResponseWriter, r *http.Request) {
 			Islike: 1,
 		}); err != nil {
 			fmt.Println(err.Error())
-			http.Error(w, http.StatusText(http.StatusInternalServerError), http.StatusInternalServerError)
+			h.ErrorPage(w, http.StatusInternalServerError)
 			return
 		}
 
@@ -62,12 +58,12 @@ func (h *Handler) reactionPost(w http.ResponseWriter, r *http.Request) {
 			Islike: -1,
 		}); err != nil {
 			fmt.Println(err.Error())
-			http.Error(w, http.StatusText(http.StatusInternalServerError), http.StatusInternalServerError)
+			h.ErrorPage(w, http.StatusInternalServerError)
 			return
 		}
 
 	} else {
-		http.Error(w, http.StatusText(http.StatusInternalServerError), http.StatusInternalServerError)
+		h.ErrorPage(w, http.StatusInternalServerError)
 		return
 	}
 	link := fmt.Sprintf("/post/?id=%d", postId)
@@ -76,39 +72,44 @@ func (h *Handler) reactionPost(w http.ResponseWriter, r *http.Request) {
 }
 func (h *Handler) reactionComment(w http.ResponseWriter, r *http.Request) {
 	if r.URL.Path != "/reaction/comment/" {
-		http.Error(w, http.StatusText(http.StatusNotFound), http.StatusNotFound)
+		h.ErrorPage(w, http.StatusNotFound)
 		return
 	}
 	if r.Method != http.MethodPost {
-		http.Error(w, http.StatusText(http.StatusMethodNotAllowed), http.StatusMethodNotAllowed)
+		h.ErrorPage(w, http.StatusMethodNotAllowed)
 		return
 
 	}
 	userValue := r.Context().Value("user")
 	if userValue == nil {
-		http.Error(w, http.StatusText(http.StatusUnauthorized), http.StatusUnauthorized)
+		h.ErrorPage(w, http.StatusUnauthorized)
 		return
 	}
 
 	user, ok := userValue.(models.User)
 	if !ok {
-		http.Error(w, http.StatusText(http.StatusUnauthorized), http.StatusUnauthorized)
+		h.ErrorPage(w, http.StatusUnauthorized)
 		return
 	}
 	if !user.IsAuth {
-		http.Error(w, http.StatusText(http.StatusUnauthorized), http.StatusUnauthorized)
+		h.ErrorPage(w, http.StatusUnauthorized)
 		return
 	}
 	commentId, err := strconv.Atoi(r.URL.Query().Get("id"))
+	if err != nil {
+		h.ErrorPage(w, http.StatusBadRequest)
+		return
+	}
 	postId, err := strconv.Atoi(r.URL.Query().Get("postId"))
 	if err != nil || commentId == 0 {
-		http.Error(w, http.StatusText(http.StatusNotFound), http.StatusNotFound)
+		h.ErrorPage(w, http.StatusNotFound)
 		return
 	}
 
 	comment, err := h.Service.Comment.GetOneCommentByIdComment(commentId)
 	if err != nil {
-		http.Error(w, err.Error(), http.StatusInternalServerError)
+		fmt.Println(err.Error())
+		h.ErrorPage(w, http.StatusInternalServerError)
 		return
 	}
 	reaction := r.FormValue("reactionComment")
@@ -119,7 +120,7 @@ func (h *Handler) reactionComment(w http.ResponseWriter, r *http.Request) {
 			Islike:    1,
 		}); err != nil {
 			fmt.Println(err.Error())
-			http.Error(w, http.StatusText(http.StatusInternalServerError), http.StatusInternalServerError)
+			h.ErrorPage(w, http.StatusInternalServerError)
 			return
 		}
 
@@ -130,12 +131,12 @@ func (h *Handler) reactionComment(w http.ResponseWriter, r *http.Request) {
 			Islike:    -1,
 		}); err != nil {
 			fmt.Println(err.Error())
-			http.Error(w, http.StatusText(http.StatusInternalServerError), http.StatusInternalServerError)
+			h.ErrorPage(w, http.StatusInternalServerError)
 			return
 		}
 
 	} else {
-		http.Error(w, http.StatusText(http.StatusInternalServerError), http.StatusInternalServerError)
+		h.ErrorPage(w, http.StatusInternalServerError)
 		return
 	}
 	link := fmt.Sprintf("/post/?id=%d", postId)

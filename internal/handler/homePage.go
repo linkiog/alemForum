@@ -8,34 +8,34 @@ import (
 
 func (h *Handler) homePage(w http.ResponseWriter, r *http.Request) {
 	if r.URL.Path != "/" {
-		http.Error(w, http.StatusText(http.StatusNotFound), http.StatusNotFound)
+		h.ErrorPage(w, http.StatusNotFound)
 		return
 	}
 	if r.Method != http.MethodGet {
-		http.Error(w, http.StatusText(http.StatusMethodNotAllowed), http.StatusMethodNotAllowed)
+		h.ErrorPage(w, http.StatusMethodNotAllowed)
 		return
 	}
 	userValue := r.Context().Value("user")
 	if userValue == nil {
-		http.Error(w, http.StatusText(http.StatusUnauthorized), http.StatusUnauthorized)
+		h.ErrorPage(w, http.StatusUnauthorized)
 		return
 	}
 	user, ok := userValue.(models.User)
 
 	if !ok {
-		http.Error(w, http.StatusText(http.StatusUnauthorized), http.StatusUnauthorized)
+		h.ErrorPage(w, http.StatusUnauthorized)
 		return
 	}
 	posts, err := h.Service.PostSer.GetAllPost()
 	if err != nil {
 		fmt.Println(err.Error())
-		http.Error(w, http.StatusText(http.StatusInternalServerError), http.StatusInternalServerError)
+		h.ErrorPage(w, http.StatusInternalServerError)
 		return
 	}
 	categories, err := h.Service.PostSer.Category()
 	if err != nil {
 		fmt.Println(err.Error())
-		http.Error(w, http.StatusText(http.StatusInternalServerError), http.StatusInternalServerError)
+		h.ErrorPage(w, http.StatusInternalServerError)
 		return
 	}
 	var info struct {
@@ -50,7 +50,7 @@ func (h *Handler) homePage(w http.ResponseWriter, r *http.Request) {
 			post, err := h.Service.PostSer.GetPostsByCategory(category)
 			if err != nil {
 				fmt.Println(err.Error())
-				http.Error(w, http.StatusText(http.StatusInternalServerError), http.StatusInternalServerError)
+				h.ErrorPage(w, http.StatusInternalServerError)
 				return
 			}
 			info.AllPosts = post
@@ -65,7 +65,7 @@ func (h *Handler) homePage(w http.ResponseWriter, r *http.Request) {
 
 	if err := h.Tmp.ExecuteTemplate(w, "homePage.html", info); err != nil {
 		fmt.Println(err.Error())
-		http.Error(w, http.StatusText(http.StatusInternalServerError), http.StatusInternalServerError)
+		h.ErrorPage(w, http.StatusInternalServerError)
 		return
 	}
 }
